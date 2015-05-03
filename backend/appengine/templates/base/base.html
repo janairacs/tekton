@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{% block title %}Tekton Fullstrack{% endblock %}</title>
+    <title>{% block title %}Vovós Brasil{% endblock %}</title>
     <!-- Bootstrap -->
 
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -48,12 +48,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">Tekton</a>
+            <a href="/" class="navbar-brand">Vovós</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 {% macro select_tab(tab='') %}
-                    <li {{ 'class=active' if tab=='COURSES' }}><a href="/courses">{% trans %}Courses{% endtrans %}</a>
+                    <li {{ 'class=active' if tab=='COURSES' }}><a href="/projeto">{% trans %}Projeto{% endtrans %}</a>
                     </li>
                     {% if _logged_user and 'ADMIN' in _logged_user.groups %}
                         <li {{ 'class=active' if tab=='ADMIN' }}><a href="/admin">{% trans %}Admin{% endtrans %}</a>
@@ -96,9 +96,7 @@
 {% block body %}{% endblock %}
 <div class="footer">
     <div class="container">
-        <p class="text-muted text-right">Tekton Full-Stack: <a target="_blank"
-                                                               href="https://github.com/renzon/tekton-fullstack">Git
-            Hub</a></p>
+        <p class="text-muted text-right">Janaira C.S. </p>
     </div>
 </div>
 </body>

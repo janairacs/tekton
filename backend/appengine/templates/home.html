@@ -4,43 +4,67 @@
     <link rel="stylesheet" href="/static/font-awesome-4.2.0/css/font-awesome.min.css"/>
 {% endblock %}
 {% block body %}
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Tekton</h1>
-                <p>{% trans %}A Full-Stack project for Google App Engine{% endtrans %}</p>
-            </div>
-        </div>
-        <br/>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="/templantes">Home</a>
+				</li>
+				<li>
+					<a href="/recados">Recados</a>
+				</li>
+				<li class="active">
+					<a href="/vovo">Vovós</a>
+				</li>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="well">
-                    <h2>{% trans %}Create CRUD code on
-                        <a href="https://cloud.google.com/products/app-engine/">App Engine</a>{% endtrans %}
-                    </h2>
-                    <br/>
+			</ul>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-6 column">
+            <a href="http://www.casimages.com.br/i/150311083135858361.jpg.html" target="_blank" title="hospedar imagens"><img src="http://nsae02.casimages.net/img/2015/03/11/150311083135858361.jpg" border="0" alt="hospedar imagem" /></a>
 
-                    <p>
-                        <a href="/courses" class="btn btn-primary"></i>{% trans %} Check Courses App
-                            Out{% endtrans %} &raquo;</a>
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="well">
-                    <h2>{% trans %}Tekton is open source.{% endtrans %}</h2>
-                    <br/>
-
-                    <p>
-                        <a href="https://github.com/renzon/tekton-fullstack" class="btn btn-social btn-github"><i
-                                class="fa fa-github"></i>{% trans %}Check Git Hub Out{% endtrans %} &raquo;</a>
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6 col-md-offset-3">
-                <iframe width="560" height="315" src="//www.youtube.com/embed/videoseries?list=PLA05yVJtRWYRGIeBxag8uT-3ftcMVT5oF" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
+		</div>
+		<div class="col-md-6 column">
+			<h2>
+				Vovós
+			</h2>
+			<p>
+				Vovózinhas do Brasil. Recados especiais para vocês, que tem netos que moram longe mais gostaria de fazer uma homenagem para vocês.
+                Apesar da distancia o Amor e grande.
+			</p>
+			<p>
+				<a class="btn" href="/saibamais">Saiba Mais. »</a>
+			</p>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<ul class="pagination">
+				<li>
+					<a href="#">Voltar</a>
+				</li>
+				<li>
+					<a href="#">1</a>
+				</li>
+				<li>
+					<a href="#">2</a>
+				</li>
+				<li>
+					<a href="#">3</a>
+				</li>
+				<li>
+					<a href="#">4</a>
+				</li>
+				<li>
+					<a href="#">5</a>
+				</li>
+				<li>
+					<a href="#">Proximo</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
 {% endblock %}
