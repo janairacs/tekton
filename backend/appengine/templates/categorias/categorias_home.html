@@ -1,0 +1,55 @@
+{% extends 'categorias/categorias_base.html' %}
+{% block js %}
+  <script type="application/javascript" src="/static/js/categorias.js">
+  </script>
+{% endblock %}
+{% block body %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="well">
+          <h3>Formulário de Recados</h3>
+
+            {{ csrf_input() }}
+            Recado:
+            {% macro select(neto) %}
+              <select neto="{{ neto }}" class="form-control input-sm">
+
+                  {% for rec in recados %}
+                  <option
+                      value="{{ rec.key.id() }}" {{ 'selected="selected"' | safe if recado_selecionada==ped }}> {{ rec.neto }}</option>
+                {% endfor %}
+
+              </select>
+            {% endmacro %}
+
+            {{ select('recado') }}
+            {{ form_input('Neto','neto','','') }}
+            {{ form_input('Data','data','','') }}
+            {{ form_input('Avo','avo','','') }}
+            {{ form_input('Video','video','','') }}
+            {{ form_input('Mensagem','mensagem','','') }}
+            <button id="salvar-recado-btn" class="btn btn-success" >Salvar</button>
+
+            <img id="ajax-img" src="/static/img/ajax.gif" />
+
+          <div id="lista-div">
+            <h3>Lista de Recados {{ 'cadastrados '+ recado_selecionada.neto if recado_selecionada }}</h3>
+
+            <form action="{{ pesquisar_path }}">
+              {{ select('recado_selecionada') }}
+              <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </form>
+            <ul id="recados-lista">
+
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+{% endblock %}

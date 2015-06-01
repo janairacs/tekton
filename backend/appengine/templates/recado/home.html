@@ -1,0 +1,311 @@
+{% extends 'recado/recado_base.html' %}
+{% block body %}
+    <div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<ul class="nav nav-tabs">
+				<li class="">
+					<a href="/">Home</a>
+				</li>
+                <li class="active">
+					<a href="/recado">Recados</a>
+				</li>
+				<li class="">
+					<a href="/vovo">Vovós</a>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<h2>Recado</h2>
+
+		    <center><p >
+				<i>
+                    Recados
+Veja alguns recados de alguns netinhos para suas avozinhas.
+
+
+                </i></center>
+            </p>
+
+
+
+		</div>
+	</div>
+</div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <img alt="140x140" src="http://i58.tinypic.com/sym7v4.jpg" />
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{% trans %}Adicionar o seu recado. {% endtrans %}</h1>
+                <button id="adicionar" class="btn btn-success">{% trans %}Criar Recado{% endtrans %}</button>
+
+                <!-- Formulario para adicionar e editar um recado -->
+                <div id="div-formulario" class="container" hidden="hidden">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br/>
+                            <div class="well">
+                                <h1 class="text-center">{% trans %}Formulário{% endtrans %}</h1>
+
+                                <input hidden="hidden" id="id_recado">
+                                <div class="col-md-6">
+                                    {{ form_input(_('Neto'), 'neto', form.neto) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_input(_('Data'), 'data', form.data) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_input(_('Avo'), 'avo', form.avo) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_input(_('Video'), 'video', form.video) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_input(_('Mensagem'), 'mensagem', form.mensagem) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_input(_('Envio'), 'envio', form.envio) }}
+                                </div>
+                                <button id="btn-salvar" type="button" class="btn btn-success">{% trans %}Salvar{% endtrans %}</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr/>
+                <h2>{% trans %}Lista de Recados{% endtrans %}</h2>
+                <table id="tabela" class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th/>
+                        <th>{% trans %}Id{% endtrans %}</th>
+                        <th>{% trans %}Creation{% endtrans %}</th>
+                        <th>{% trans %}Neto{% endtrans %}</th>
+                        <th>{% trans %}Data{% endtrans %}</th>
+                        <th>{% trans %}Avo{% endtrans %}</th>
+                        <th>{% trans %}Video{% endtrans %}</th>
+                        <th>{% trans %}Mensagem{% endtrans %}</th>
+                        <th>{% trans %}Envio{% endtrans %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if recados %}
+                    {% for recado in recados %}
+                        {% if recado.key %}
+                        <tr id="linha-{{ recado.key.id() }}">
+                            <td>
+                                <button value="{{ recado.key.id() }}" class="btn btn-success btn-sm selecionar"><i class="glyphicon glyphicon-pencil"></i></button>
+                            </td>
+                            <td>{{ recado.key.id() }}</td>
+                            <td>{{ recado.creation }}</td>
+                            <td id="neto-{{ recado.key.id() }}">{{ recado.neto }}</td>
+                            <td id="data-{{ recado.key.id() }}">{{ recado.data }}</td>
+                            <td id="avo-{{ recado.key.id() }}">{{ recado.avo }}</td>
+                            <td id="video-{{ recado.key.id() }}">{{ recado.video }}</td>
+                            <td id="mensagem-{{ recado.key.id() }}">{{ recado.mensagem }}</td>
+                            <td id="envio-{{ recado.key.id() }}">{{ recado.envio.tipo }}</td>
+                            <td>
+                                <button value="{{ recado.key.id() }}" class="btn btn-danger btn-sm excluir"><i class="glyphicon glyphicon-trash" ></i></button>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="application/javascript">
+    $(document).ready(function (){
+        $("#adicionar").click(function (){
+            if($("#div-formulario").is(":hidden")){
+                $("#div-formulario").show("slow");
+            }else{
+                $("#div-formulario").hide("slow");
+            }
+            $('#btn-salvar').val('adicionar');
+        });
+
+        $('#btn-salvar').click(function (){
+            var data = $('#dataInput').val();
+            var neto = $('#netoInput').val();
+            var avo = $('#avoInput').val();
+            var video = $('#videoInput').val();
+            var mensagem = $('#mensagemInput').val();
+            var envio = $('#envioInput').val();
+            if($('#btn-salvar').val() == 'adicionar'){
+                criar(data, neto, avo, video, mensagem, envio);
+            }
+            if($('#btn-salvar').val() == 'editar'){
+                var id = $('#id_recado').val();
+                editar(id, data, neto, avo, video, mensagem, envio);
+            }
+        });
+
+        $('.selecionar').click(function (){
+            pesquisar($(this).val());
+        });
+
+        $('.excluir').click(function (){
+            excluir($(this).val());
+        });
+
+        function pesquisar(id){
+            $.ajax({
+                method: "POST",
+                url: "/recado",
+                data: {
+                    id: id
+                },
+                statusCode: {
+                    200: function(retorno) {
+                        var json = to_json(retorno.responseText);
+                        $('#id_recado').val(json.id);
+                        $('#dataInput').val(json.data);
+                        $('#netoInput').val(json.neto);
+                        $('#avoInput').val(json.avo);
+                        $('#videoInput').val(json.video);
+                        $('#mensagemInput').val(json.mensagem);
+                        $('#envioInput').val(json.envio);
+
+                        if($("#div-formulario").is(":hidden")){
+                            $("#div-formulario").show("slow");
+                        }
+
+                        $('#btn-salvar').val('editar');
+                    },
+                    500: function(erro){
+                        alert('Erro: ' + erro.responseText);
+                    }
+                }
+            });
+        }
+
+        function to_json(retorno){
+            var novo = retorno.substring(5);
+            return $.parseJSON(novo);
+        }
+
+        function editar(id, data, neto, avo, video, mensagem, envio){
+            var url = '/recado/edit/save/' + id;
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: {
+                    data: data,
+                    neto: neto,
+                    avo: avo,
+                    video: video,
+                    mensagem: mensagem,
+                    envio: envio
+                },
+                statusCode: {
+                    200: function(retorno) {
+                        var json = to_json(retorno.responseText);
+                        $('#id_recado').val('');
+                        $('#data-' + id).text(json.data);
+                        $('#neto-' + id).text(json.neto);
+                        $('#avo-' + id).text(json.avo);
+                        $('#video-' + id).text(json.video);
+                        $('#mensagem-' + id).text(json.mensagem);
+                        $('#envio-' + id).text(json.envio);
+
+                        if($("#div-formulario").is(":hidden")){
+                            $("#div-formulario").show("slow");
+                        }else{
+                            $("#div-formulario").hide("slow");
+                        }
+                        $('#btn-salvar').val('adicionar');
+                        alert('Recado foi editado com sucesso!');
+                    },
+                    500: function(erro){
+                        alert('Erro: ' + erro.responseText);
+                    }
+                }
+            });
+        }
+
+        function criar(data, neto, avo, video, mensagem, envio){
+            $.ajax({
+                method: "POST",
+                url: "/recado/new/save",
+                data: {
+                    data: data,
+                    neto: neto,
+                    avo: avo,
+                    video: video,
+                    mensagem: mensagem,
+                    envio: envio
+                },
+                statusCode: {
+                    200: function(retorno) {
+                        var json = to_json(retorno.responseText);
+                        $("#tabela").find('tbody')
+                            .append($('<tr>')
+                                .append($('<td>').append(
+                                    $('<button>').attr('class', 'btn btn-success btn-sm selecionar')
+                                        .val(json.id).append($('<span>').attr('class', 'glyphicon glyphicon-pencil').attr('type', 'button')))
+                            )
+                            .append($('<td>').text(json.id))
+                            .append($('<td>').text(json.creation))
+                            .append($('<td>').text(json.neto))
+                            .append($('<td>').text(json.data))
+                            .append($('<td>').text(json.avo))
+                            .append($('<td>').text(json.video))
+                            .append($('<td>').text(json.mensagem))
+                            .append($('<td>').text(json.envio))
+                            .append($('<td>').append(
+                                $('<button>').attr('class', 'btn btn-danger btn-sm excluir')
+                                    .val(json.id).append($('<span>').attr('class', 'glyphicon glyphicon-trash').attr('type', 'button'))
+                                )
+                            )
+                        );
+
+                        if($("#div-formulario").is(":hidden")){
+                            $("#div-formulario").show("slow");
+                        }else{
+                            $("#div-formulario").hide("slow");
+                        }
+                        $('#btn-salvar').val('adicionar');
+                        alert('Recado foi criado com sucesso!');
+                    }
+                }
+            });
+        }
+
+        function excluir(id){
+            var url = '/recado/delete';
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    id: id
+                },
+                statusCode: {
+                    200: function (retorno) {
+                        $('#linha-' + id).hide('slow');
+                        var json = to_json(retorno.responseText);
+                        alert(json.mensagem);
+                    },
+                    500: function (erro){
+                        alert('Erro: ' + erro);
+                    }
+                }
+            });
+        }
+    });
+    </script>
+{% endblock %}

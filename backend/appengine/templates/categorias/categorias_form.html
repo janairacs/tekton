@@ -1,0 +1,37 @@
+{% extends 'categorias/categorias_base.html' %}
+{% block body %}
+{% set recado = recado or None %}
+    {% set erros = erros or None %}
+
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-6 col-md-offset-3">
+        <div class="well">
+
+            <br>
+
+        <h3 align="center">Formulário </h3>
+
+             <form action="{{ salvar_path }}" method="post">
+
+                 {{ csrf_input() }}
+                 {{ form_input('Neto','neto',recado.neto,erros.neto) }}
+                 {{ form_input('Data','data',recado.data,erros.data) }}
+                 {{ form_input('Avo','avo',recado.avo,erros.avo) }}
+                 {{ form_input('Video','video',recado.video,erros.video) }}
+                 {{ form_input('Mensagem','mensagem',recado.mensagem,erros.mensagem) }}
+
+                 {% if recados and recado.key %}
+             <input type="hidden" name="recado_id" value="{{ recado.key.id() }}"/>
+
+             {% endif %}
+             <button class="btn btn-success" type="submit">Salvar</button>
+
+             </form>
+
+
+		</div>
+	</div>
+</div>
+</div>
+{% endblock %}
