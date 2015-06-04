@@ -1,5 +1,5 @@
 #from backend.appengine.categoria.categoria_model import Recado, RecadoForm
-from backend.appengine.config.template_middleware import TemplateResponse
+from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
 from recado_app.recado_commands import RecadoForm
 from recado_app.recado_model import Recado

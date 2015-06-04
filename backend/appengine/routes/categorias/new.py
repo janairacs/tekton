@@ -1,6 +1,6 @@
 from __future__ import absolute_import,unicode_literals
 #from backend.appengine.categoria.categoria_model import RecadoForm, Recado
-from backend.appengine.config.template_middleware import TemplateResponse
+from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
 #from config.template_middleware import TemplateResponse
 from recado_app.recado_commands import RecadoForm

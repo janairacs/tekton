@@ -12,6 +12,7 @@
 
                     <form action="{{ save_path }}" method="post" role="form">
                         {{ csrf_input() }}
+                        {{ form_input('Neto','neto', produto.neto, errors.neto)}}
 
                         <button type="submit" class="btn btn-success">{% trans %}Save{% endtrans %}</button>
                     </form>
